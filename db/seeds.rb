@@ -5,3 +5,11 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+
+bill = User.create(username: 'bill', password: 'password')
+
+clan_war = Topic.create(title: 'Clan War', description: 'Talk strategy about current war.')
+strat = Topic.create(title: 'Tactics and Strategy', description: 'Theorycraft base designs and attack compositions.')
+general = Topic.create(title: 'General', description: 'Anything non clash related.')
+
+Post.create(title: 'I need help with base design', body: 'My base is bad and need a rework, help!', user: bill, topic: strat)

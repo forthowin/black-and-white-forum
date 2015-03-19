@@ -7,7 +7,12 @@ describe UsersController do
       expect(assigns(:user)).to be_a_new(User)
     end
 
-    it "redirects to the root path for users that is already log in"
+    it "redirects to the forum path for users that is already logged in" do
+      bob = Fabricate(:user)
+      session[:user_id] = bob.id
+      get :new
+      expect(response).to redirect_to forum_path
+    end
   end
 
   describe "POST create" do
@@ -27,7 +32,10 @@ describe UsersController do
         expect(session[:user_id]).to be_present
       end
 
-      it "redirects to the forum page"
+      it "redirects to the forum page" do
+        post :create, user: Fabricate.attributes_for(:user)
+        expect(response).to redirect_to forum_path
+      end
     end
 
     context "with invalid input" do
