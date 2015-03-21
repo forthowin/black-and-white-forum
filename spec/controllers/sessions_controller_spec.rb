@@ -11,7 +11,7 @@ describe SessionsController do
       bob = Fabricate(:user)
       session[:user_id] = bob.id
       get :new
-      expect(response).to redirect_to forum_path
+      expect(response).to redirect_to topics_path
     end
   end
 
@@ -26,7 +26,7 @@ describe SessionsController do
       it "redirects to the forum path" do
         bob = Fabricate(:user)
         post :create, username: bob.username, password: bob.password
-        expect(response).to redirect_to forum_path
+        expect(response).to redirect_to topics_path
       end
 
       it "sets the flash success message" do

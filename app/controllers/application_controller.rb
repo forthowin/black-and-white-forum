@@ -16,14 +16,14 @@ class ApplicationController < ActionController::Base
   def require_user
     if !logged_in?
       flash[:danger] = "You must be logged in."
-      redirect_to register_path
+      redirect_to login_path
     end
   end
 
   def logged_in_redirect
     if logged_in?
       flash[:danger] = "You're already logged in."
-      redirect_to forum_path
+      redirect_to topics_path
     end
   end
 end

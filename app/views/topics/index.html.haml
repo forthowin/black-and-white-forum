@@ -1,0 +1,10 @@
+%h3
+  Forum
+
+- @topics.each do |topic|
+  %ul.list-group
+    %li.list-group-item
+      %strong(style="font-size:150%")
+        = link_to topic.title, topic_path(topic)
+      %br
+      = topic.description

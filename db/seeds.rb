@@ -13,3 +13,5 @@ strat = Topic.create(title: 'Tactics and Strategy', description: 'Theorycraft ba
 general = Topic.create(title: 'General', description: 'Anything non clash related.')
 
 Post.create(title: 'I need help with base design', body: 'My base is bad and need a rework, help!', user: bill, topic: strat)
+Post.create(title: 'What is the best army comp', body: 'Is it Gowiwi?', user: bill, topic: strat)
+Post.create(title: 'What do you guys think about this base?', body: 'Its pretty good i think.', user: bill, topic: strat)
