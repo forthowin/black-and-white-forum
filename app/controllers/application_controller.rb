@@ -23,7 +23,7 @@ class ApplicationController < ActionController::Base
   def logged_in_redirect
     if logged_in?
       flash[:danger] = "You're already logged in."
-      redirect_to topics_path
+      redirect_to forum_path
     end
   end
 end

@@ -1,4 +1,4 @@
-class Post < ActiveRecord::Base
+class Subject < ActiveRecord::Base
   belongs_to :user
   belongs_to :topic
 

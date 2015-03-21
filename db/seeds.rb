@@ -12,6 +12,6 @@ clan_war = Topic.create(title: 'Clan War', description: 'Talk strategy about cur
 strat = Topic.create(title: 'Tactics and Strategy', description: 'Theorycraft base designs and attack compositions.')
 general = Topic.create(title: 'General', description: 'Anything non clash related.')
 
-Post.create(title: 'I need help with base design', body: 'My base is bad and need a rework, help!', user: bill, topic: strat)
-Post.create(title: 'What is the best army comp', body: 'Is it Gowiwi?', user: bill, topic: strat)
-Post.create(title: 'What do you guys think about this base?', body: 'Its pretty good i think.', user: bill, topic: strat)
+Subject.create(title: 'I need help with base design', body: 'My base is bad and need a rework, help!', user: bill, topic: strat)
+Subject.create(title: 'What is the best army comp', body: 'Is it Gowiwi?', user: bill, topic: strat)
+Subject.create(title: 'What do you guys think about this base?', body: 'Its pretty good i think.', user: bill, topic: strat)

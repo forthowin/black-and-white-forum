@@ -7,7 +7,6 @@ Rails.application.routes.draw do
   get '/logout', to: 'sessions#destroy'
 
   resources :users, only: [:create]
-  resources :topics, only: [:index] do
-    resources :posts, only: [:index, :show]
-  end
+  get '/forum', to: 'topics#index'
+  get '/forum/:topic_id/threads', to: 'threads#index', as: :forum_threads
 end

@@ -11,7 +11,7 @@ describe UsersController do
       bob = Fabricate(:user)
       session[:user_id] = bob.id
       get :new
-      expect(response).to redirect_to topics_path
+      expect(response).to redirect_to forum_path
     end
   end
 
@@ -34,7 +34,7 @@ describe UsersController do
 
       it "redirects to the forum page" do
         post :create, user: Fabricate.attributes_for(:user)
-        expect(response).to redirect_to topics_path
+        expect(response).to redirect_to forum_path
       end
     end
 
