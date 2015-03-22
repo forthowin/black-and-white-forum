@@ -21,9 +21,13 @@ class ThreadsController < ApplicationController
     @subject = Subject.new(subject_params)
     @subject.user = current_user
     @subject.topic_id = params[:topic_id]
-    @subject.save
-    flash[:success] = "Subject has been created."
-    redirect_to forum_thread_path(params[:topic_id], @subject.id)
+    if @subject.save
+      flash[:success] = "Subject has been created."
+      redirect_to forum_thread_path(params[:topic_id], @subject.id)
+    else
+      @topic = Topic.find params[:topic_id]
+      render :new
+    end
   end
 
   private

@@ -87,5 +87,39 @@ describe ThreadsController do
         expect(response).to redirect_to forum_thread_path(topic.id, 1)
       end
     end
+
+    context "with invalid inputs" do
+      it "renders the :new page" do
+        bob = Fabricate(:user)
+        session[:user_id] = bob.id
+        topic = Fabricate(:topic)
+        post :create, subject: {title: '', body: 'body'}, topic_id: topic.id
+        expect(response).to render_template :new
+      end
+
+      it "does not create a subject" do
+        bob = Fabricate(:user)
+        session[:user_id] = bob.id
+        topic = Fabricate(:topic)
+        post :create, subject: {title: '', body: 'body'}, topic_id: topic.id
+        expect(Subject.count).to eq(0)
+      end
+
+      it "assigns @subject" do
+        bob = Fabricate(:user)
+        session[:user_id] = bob.id
+        topic = Fabricate(:topic)
+        post :create, subject: {title: '', body: 'body'}, topic_id: topic.id
+        expect(assigns(:subject)).to be_a_new(Subject)
+      end
+
+      it "assigns @topic" do
+        bob = Fabricate(:user)
+        session[:user_id] = bob.id
+        topic = Fabricate(:topic)
+        post :create, subject: {title: '', body: 'body'}, topic_id: topic.id
+        expect(assigns(:topic)).to eq(topic)
+      end
+    end
   end
 end
