@@ -9,4 +9,7 @@ Rails.application.routes.draw do
   resources :users, only: [:create]
   get '/forum', to: 'topics#index'
   get '/forum/:topic_id/threads', to: 'threads#index', as: :forum_threads
+  get '/forum/:topic_id/thread/:thread_id', to: 'threads#show', as: :forum_thread
+  post '/forum/:topic_id/threads/:thread_id/posts', to: 'posts#show'
+  resources :posts, only: :create
 end

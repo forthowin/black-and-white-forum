@@ -12,6 +12,10 @@ clan_war = Topic.create(title: 'Clan War', description: 'Talk strategy about cur
 strat = Topic.create(title: 'Tactics and Strategy', description: 'Theorycraft base designs and attack compositions.')
 general = Topic.create(title: 'General', description: 'Anything non clash related.')
 
-Subject.create(title: 'I need help with base design', body: 'My base is bad and need a rework, help!', user: bill, topic: strat)
-Subject.create(title: 'What is the best army comp', body: 'Is it Gowiwi?', user: bill, topic: strat)
-Subject.create(title: 'What do you guys think about this base?', body: 'Its pretty good i think.', user: bill, topic: strat)
+thread1 = Subject.create(title: 'I need help with base design', body: 'My base is bad and need a rework, help!', user: bill, topic: strat)
+thread2 = Subject.create(title: 'What is the best army comp', body: 'Is it Gowiwi?', user: bill, topic: strat)
+thread3 = Subject.create(title: 'What do you guys think about this base?', body: 'Its pretty good i think.', user: bill, topic: strat)
+
+Post.create(body: 'yeah its pretyt oasd foasdfoasd foasdfj oas fos fasf aosdf.', user: bill, subject: thread2)
+Post.create(body: 'yasdfasdf eah its pretyt oasd foasdfoasd foasdfj oas fos fasf aosdf.', user: bill, subject: thread2)
+Post.create(body: 'yesdfah its pretysdft oasd foassa dfasfdfdfoa asdfasdsd foasdfj oas fos fasf aosdf.', user: bill, subject: thread2)

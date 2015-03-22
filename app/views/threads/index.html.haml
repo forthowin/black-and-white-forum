@@ -1,9 +1,24 @@
 %h3
   = "Forum >> #{@topic.title}"
 
-.table-bordered
+%table.table-bordered(style="width:100%")
   %tr
     %td
       Title/Post Starter
     %td
-      Replies
+      Replies/Views
+    %td
+      Last Post By
+  - @topic.subjects.each do |thread|
+    %tr
+      %td
+        = link_to thread.title, forum_thread_path(@topic, thread)
+        %br
+        = "Started by #{thread.user.username}, date"
+      %td
+        = "Replies: #{thread.posts.count}"
+        %br
+        = "Views: "
+      %td
+        = thread.user.username
+

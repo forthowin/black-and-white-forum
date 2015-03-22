@@ -1,0 +1,39 @@
+%h3
+  =  "Forum >> #{@topic.title} >> #{@thread.title}"
+
+%table.table-bordered(style="width:100%")
+  %tr
+    %td(style="width:20%")
+      = @thread.user.username
+      %br
+      = "Posts: #{@thread.user.posts.count + @thread.user.subjects.count}"
+    %td(style="width:60%")
+      = simple_format(@thread.body)
+    %td(style="width:10%")
+      = "#1"
+      %br
+      = @thread.created_at
+
+%table.table-bordered(style="width:100%")
+  - @thread.posts.each_with_index do |post, index|
+    %tr
+      %td(style="width:20%")
+        = post.user.username
+        %br
+        = "Posts: #{post.user.posts.count + post.user.subjects.count}"
+      %td(style="width:60%")
+        = simple_format(post.body)
+      %td(style="width:10%")
+        = "##{index + 2}"
+        %br
+        = post.created_at
+%br
+
+- if logged_in?
+  = form_tag({controller: "posts", action: "create"}, method: 'post') do
+    .control-group
+      = label_tag :body, 'Reply'
+      %br
+      = hidden_field_tag :thread_id, @thread.id
+      = text_area_tag :body, nil, size: '60x8'
+    = submit_tag 'Submit', class: 'btn btn-primary'
