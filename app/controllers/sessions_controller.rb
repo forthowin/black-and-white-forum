@@ -1,5 +1,6 @@
 class SessionsController < ApplicationController
   before_action :logged_in_redirect, only: :new
+  before_action :require_user, only: :destroy
 
   def new
     @user = User.new

@@ -1,5 +1,5 @@
 class SubjectsController < ApplicationController
-  before_action :require_user, only: [:new, :create]
+  before_action :require_user
 
   def index
     @topic = Topic.find(params[:topic_id])

@@ -11,6 +11,7 @@ gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0',          group: :doc
 gem 'bootstrap_form'
 gem 'haml-rails'
+gem 'time_difference', '~> 0.3.2'
 
 group :development, :test do
   gem 'debugger'

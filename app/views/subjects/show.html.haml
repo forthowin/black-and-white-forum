@@ -17,7 +17,7 @@
     %td(style="width:10%")
       = "#1"
       %br
-      = @subject.created_at
+      = time_difference(@subject.created_at)
 
 %table.table-bordered(style="width:100%")
   - @subject.posts.each_with_index do |post, index|
@@ -31,7 +31,7 @@
       %td(style="width:10%")
         = "##{index + 2}"
         %br
-        = post.created_at
+        = time_difference(post.created_at)
 %br
 
 - if logged_in?

@@ -21,7 +21,7 @@
         %br
         = "Started by "
         = link_to subject.user.username, user_path(subject.user)
-        = 'date'
+        = time_difference(subject.created_at)
       %td
         = "Replies: #{subject.posts.count}"
         %br

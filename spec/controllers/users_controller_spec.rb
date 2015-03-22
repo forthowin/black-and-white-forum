@@ -58,8 +58,15 @@ describe UsersController do
   describe "GET show" do
     it "assigns @user" do
       bob = Fabricate(:user)
+      session[:user_id] = bob.id
       get :show, id: bob.id
       expect(assigns(:user)).to eq(bob)
+    end
+
+    it "redirects to the login page for unauthenticated users" do
+      bob = Fabricate(:user)
+      get :show, id: bob.id
+      expect(response).to redirect_to login_path
     end
   end
 end

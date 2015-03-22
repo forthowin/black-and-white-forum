@@ -4,17 +4,26 @@ describe SubjectsController do
   describe "GET index" do
     it "assigns @subjects" do
       bob = Fabricate(:user)
+      session[:user_id] = bob.id
       topic = Fabricate(:topic)
       subject1 = Fabricate(:subject, user: bob, topic: topic)
       subject2 = Fabricate(:subject, user: bob, topic: topic)
       get :index, topic_id: topic.id
       expect(assigns(:subjects)).to match_array([subject1, subject2])
     end
+
+    it "redirects to the login page for unauthenticated users" do
+      bob = Fabricate(:user)
+      topic = Fabricate(:topic)
+      get :index, topic_id: topic.id
+      expect(response).to redirect_to login_path
+    end
   end
 
   describe "GET show" do
     it "assigns @subject" do
       bob = Fabricate(:user)
+      session[:user_id] = bob.id
       topic = Fabricate(:topic)
       subject1 = Fabricate(:subject, user: bob, topic: topic)
       get :show, topic_id: topic.id, subject_id: subject1.id
@@ -23,10 +32,19 @@ describe SubjectsController do
 
     it "assigns @topic" do
       bob = Fabricate(:user)
+      session[:user_id] = bob.id
       topic = Fabricate(:topic)
       subject1 = Fabricate(:subject, user: bob, topic: topic)
       get :show, topic_id: topic.id, subject_id: subject1.id
       expect(assigns(:topic)).to eq(topic)
+    end
+
+    it "redirects to the login page for unauthenticated users" do
+      bob = Fabricate(:user)
+      topic = Fabricate(:topic)
+      subject1 = Fabricate(:subject, user: bob, topic: topic)
+      get :show, topic_id: topic.id, subject_id: subject1.id
+      expect(response).to redirect_to login_path
     end
   end
 

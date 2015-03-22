@@ -78,5 +78,10 @@ describe SessionsController do
       get :destroy
       expect(flash[:success]).to be_present
     end
+
+    it "redirects to the login page for unauthenticated users" do
+      get :destroy
+      expect(response).to redirect_to login_path
+    end
   end
 end
