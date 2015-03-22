@@ -1,31 +1,31 @@
 require 'rails_helper'
 
-describe ThreadsController do
+describe SubjectsController do
   describe "GET index" do
-    it "assigns @threads" do
+    it "assigns @subjects" do
       bob = Fabricate(:user)
       topic = Fabricate(:topic)
-      thread1 = Fabricate(:subject, user: bob, topic: topic)
-      thread2 = Fabricate(:subject, user: bob, topic: topic)
+      subject1 = Fabricate(:subject, user: bob, topic: topic)
+      subject2 = Fabricate(:subject, user: bob, topic: topic)
       get :index, topic_id: topic.id
-      expect(assigns(:threads)).to match_array([thread1, thread2])
+      expect(assigns(:subjects)).to match_array([subject1, subject2])
     end
   end
 
   describe "GET show" do
-    it "assigns @thread" do
+    it "assigns @subject" do
       bob = Fabricate(:user)
       topic = Fabricate(:topic)
-      thread1 = Fabricate(:subject, user: bob, topic: topic)
-      get :show, topic_id: topic.id, thread_id: thread1.id
-      expect(assigns(:thread)).to eq(thread1)
+      subject1 = Fabricate(:subject, user: bob, topic: topic)
+      get :show, topic_id: topic.id, subject_id: subject1.id
+      expect(assigns(:subject)).to eq(subject1)
     end
 
     it "assigns @topic" do
       bob = Fabricate(:user)
       topic = Fabricate(:topic)
-      thread1 = Fabricate(:subject, user: bob, topic: topic)
-      get :show, topic_id: topic.id, thread_id: thread1.id
+      subject1 = Fabricate(:subject, user: bob, topic: topic)
+      get :show, topic_id: topic.id, subject_id: subject1.id
       expect(assigns(:topic)).to eq(topic)
     end
   end
@@ -56,13 +56,6 @@ describe ThreadsController do
 
   describe "POST create" do
     context "with valid inputs" do
-      it "redirects to login page for unauthenticated users" do
-        topic = Fabricate(:topic)
-        bob = Fabricate(:user)
-        post :create, subject: {title: 'test', body: 'asdf'}, topic_id: topic.id
-        expect(response).to redirect_to login_path
-      end
-
       it "creates a new subject" do
         bob = Fabricate(:user)
         session[:user_id] = bob.id
@@ -84,7 +77,7 @@ describe ThreadsController do
         session[:user_id] = bob.id
         topic = Fabricate(:topic)
         post :create, subject: {title: 'title', body: 'body'}, topic_id: topic.id
-        expect(response).to redirect_to forum_thread_path(topic.id, 1)
+        expect(response).to redirect_to forum_subject_path(topic.id, 1)
       end
     end
 
@@ -120,6 +113,13 @@ describe ThreadsController do
         post :create, subject: {title: '', body: 'body'}, topic_id: topic.id
         expect(assigns(:topic)).to eq(topic)
       end
+    end
+
+    it "redirects to login page for unauthenticated users" do
+      topic = Fabricate(:topic)
+      bob = Fabricate(:user)
+      post :create, subject: {title: 'test', body: 'asdf'}, topic_id: topic.id
+      expect(response).to redirect_to login_path
     end
   end
 end

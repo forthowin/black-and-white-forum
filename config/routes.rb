@@ -8,9 +8,9 @@ Rails.application.routes.draw do
 
   resources :users, only: [:create]
   get '/forum', to: 'topics#index'
-  get '/forum/:topic_id/threads', to: 'threads#index', as: :forum_threads
-  get '/forum/:topic_id/new', to: 'threads#new', as: :new_thread
-  post '/forum/:topic_id/create', to: 'threads#create', as: :create_thread
-  get '/forum/:topic_id/thread/:thread_id', to: 'threads#show', as: :forum_thread
+  get '/forum/:topic_id/subjects', to: 'subjects#index', as: :forum_subjects
+  get '/forum/:topic_id/new', to: 'subjects#new', as: :new_subject
+  post '/forum/:topic_id/create', to: 'subjects#create', as: :create_subject
+  get '/forum/:topic_id/subject/:subject_id', to: 'subjects#show', as: :forum_subject
   resources :posts, only: :create
 end

@@ -1,0 +1,27 @@
+%h3
+  = "Forum >> #{@topic.title}"
+%br
+  = link_to "Create Subject", new_subject_path(@topic), method: 'get', class: 'btn btn-default'
+%br
+
+%table.table-bordered(style="width:100%")
+  %tr
+    %td
+      Title/Post Starter
+    %td
+      Replies/Views
+    %td
+      Last Post By
+  - @topic.subjects.each do |subject|
+    %tr
+      %td
+        = link_to subject.title, forum_subject_path(@topic, subject)
+        %br
+        = "Started by #{subject.user.username}, date"
+      %td
+        = "Replies: #{subject.posts.count}"
+        %br
+        = "Views: "
+      %td
+        = subject.user.username
+

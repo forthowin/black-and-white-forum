@@ -1,22 +1,22 @@
 %h3
-  =  "Forum >> #{@topic.title} >> #{@thread.title}"
+  =  "Forum >> #{@topic.title} >> #{@subject.title}"
 %br
 
 %table.table-bordered(style="width:100%")
   %tr
     %td(style="width:20%")
-      = @thread.user.username
+      = @subject.user.username
       %br
-      = "Posts: #{@thread.user.posts.count + @thread.user.subjects.count}"
+      = "Posts: #{@subject.user.posts.count + @subject.user.subjects.count}"
     %td(style="width:60%")
-      = simple_format(@thread.body)
+      = simple_format(@subject.body)
     %td(style="width:10%")
       = "#1"
       %br
-      = @thread.created_at
+      = @subject.created_at
 
 %table.table-bordered(style="width:100%")
-  - @thread.posts.each_with_index do |post, index|
+  - @subject.posts.each_with_index do |post, index|
     %tr
       %td(style="width:20%")
         = post.user.username
@@ -35,6 +35,6 @@
     .control-group
       = label_tag :body, 'Reply'
       %br
-      = hidden_field_tag :thread_id, @thread.id
+      = hidden_field_tag :subject_id, @subject.id
       = text_area_tag :body, nil, size: '60x8'
     = submit_tag 'Submit', class: 'btn btn-primary'

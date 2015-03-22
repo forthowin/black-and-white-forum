@@ -1,14 +1,14 @@
-class ThreadsController < ApplicationController
+class SubjectsController < ApplicationController
   before_action :require_user, only: [:new, :create]
 
   def index
     @topic = Topic.find(params[:topic_id])
-    @threads = @topic.subjects
+    @subjects = @topic.subjects
   end
 
   def show
     @topic = Topic.find params[:topic_id]
-    @thread = Subject.find params[:thread_id]
+    @subject = Subject.find params[:subject_id]
     @post = Post.new
   end
 
@@ -23,7 +23,7 @@ class ThreadsController < ApplicationController
     @subject.topic_id = params[:topic_id]
     if @subject.save
       flash[:success] = "Subject has been created."
-      redirect_to forum_thread_path(params[:topic_id], @subject.id)
+      redirect_to forum_subject_path(params[:topic_id], @subject.id)
     else
       @topic = Topic.find params[:topic_id]
       render :new
