@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   post '/login', to: 'sessions#create'
   get '/logout', to: 'sessions#destroy'
 
-  resources :users, only: [:create]
+  resources :users, only: [:create, :show]
   get '/forum', to: 'topics#index'
   get '/forum/:topic_id/subjects', to: 'subjects#index', as: :forum_subjects
   get '/forum/:topic_id/new', to: 'subjects#new', as: :new_subject

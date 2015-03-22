@@ -1,4 +1,10 @@
 %h3
+  = link_to 'Forum', forum_path
+  = '>>'
+  = link_to @topic.title, forum_subjects_path(@topic)
+%br
+
+%h4
   Create Subject
 
 = bootstrap_form_for(@subject, url: create_subject_path(@topic)) do |f|

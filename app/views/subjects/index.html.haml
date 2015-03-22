@@ -1,5 +1,7 @@
 %h3
-  = "Forum >> #{@topic.title}"
+  = link_to 'Forum', forum_path
+  = '>>'
+  = link_to @topic.title, forum_subjects_path(@topic)
 %br
   = link_to "Create Subject", new_subject_path(@topic), method: 'get', class: 'btn btn-default'
 %br
@@ -17,7 +19,9 @@
       %td
         = link_to subject.title, forum_subject_path(@topic, subject)
         %br
-        = "Started by #{subject.user.username}, date"
+        = "Started by "
+        = link_to subject.user.username, user_path(subject.user)
+        = 'date'
       %td
         = "Replies: #{subject.posts.count}"
         %br

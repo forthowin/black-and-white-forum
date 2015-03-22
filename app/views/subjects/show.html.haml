@@ -1,11 +1,15 @@
 %h3
-  =  "Forum >> #{@topic.title} >> #{@subject.title}"
+  = link_to 'Forum', forum_path
+  = '>>'
+  = link_to @topic.title, forum_subjects_path(@topic)
+  = '>>'
+  = link_to @subject.title, forum_subject_path(@topic, @subject)
 %br
 
 %table.table-bordered(style="width:100%")
   %tr
     %td(style="width:20%")
-      = @subject.user.username
+      = link_to @subject.user.username, user_path(@subject.user)
       %br
       = "Posts: #{@subject.user.posts.count + @subject.user.subjects.count}"
     %td(style="width:60%")
@@ -19,7 +23,7 @@
   - @subject.posts.each_with_index do |post, index|
     %tr
       %td(style="width:20%")
-        = post.user.username
+        = link_to post.user.username, user_path(post.user)
         %br
         = "Posts: #{post.user.posts.count + post.user.subjects.count}"
       %td(style="width:60%")
