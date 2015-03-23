@@ -5,12 +5,27 @@ describe SubjectsController do
     let(:bob) { Fabricate(:user) }
     let(:topic) { Fabricate(:topic) }
 
+    it "assigns @topic" do
+      session[:user_id] = bob.id
+      get :index, topic_id: topic.id
+      expect(assigns(:topic)).to eq(topic)
+    end
+
     it "assigns @subjects" do
       session[:user_id] = bob.id
       subject1 = Fabricate(:subject, user: bob, topic: topic)
       subject2 = Fabricate(:subject, user: bob, topic: topic)
       get :index, topic_id: topic.id
       expect(assigns(:subjects)).to match_array([subject1, subject2])
+    end
+
+    it "assigns @subject in DESC based on most recent posts" do
+      session[:user_id] = bob.id
+      subject1 = Fabricate(:subject, user: bob, topic: topic)
+      subject2 = Fabricate(:subject, user: bob, topic: topic)
+      post1 = Fabricate(:post, user: bob, subject: subject2)
+      get :index, topic_id: topic.id
+      expect(assigns(:subjects)).to match_array([subject2, subject1])
     end
 
     it "redirects to the login page for unauthenticated users" do

@@ -3,8 +3,7 @@ class SubjectsController < ApplicationController
 
   def index
     @topic = Topic.find(params[:topic_id])
-    @subjects = @topic.subjects #Subject.where("topic_id = ?", @topic.id).includes(:post).order("posts.created_at DESC")
-    #@topic.subjects.includes(:posts).order("posts.created_at DESC")
+    @subjects = Subject.includes(:posts).order("posts.created_at DESC").where("topic_id = ?", @topic.id)
   end
 
   def show
