@@ -3,7 +3,7 @@ class SubjectsController < ApplicationController
 
   def index
     @topic = Topic.find(params[:topic_id])
-    @subjects = Subject.includes(:posts).order("posts.created_at DESC").where("topic_id = ?", @topic.id)
+    @subjects = order_by_recent_posts
   end
 
   def show
@@ -38,5 +38,9 @@ class SubjectsController < ApplicationController
         redirect_to forum_subject_path(params[:topic_id], subject.id)
       end
     end
+  end
+
+  def order_by_recent_posts
+    Subject.includes(:posts).order("posts.created_at DESC").where("topic_id = ?", @topic.id).paginate(:page => params[:page])
   end
 end

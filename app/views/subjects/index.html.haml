@@ -4,7 +4,11 @@
   = link_to @topic.title, forum_subjects_path(@topic)
 %br
   = link_to "Create Subject", new_subject_path(@topic), method: 'get', class: 'btn btn-default'
-%br
+
+-if will_paginate @subjects
+  = will_paginate @subjects
+-else
+  %br
 
 %table.table-bordered(style="width:100%")
   %tr
@@ -29,3 +33,5 @@
       %td
         = link_to subject.posts.first.user.username, user_path(subject.posts.first.user)
         = time_difference(subject.posts.first.created_at)
+
+= will_paginate @subjects

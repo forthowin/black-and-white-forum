@@ -6,5 +6,7 @@ class Subject < ActiveRecord::Base
 
   is_impressionable
 
+  self.per_page = 10
+
   validates_presence_of :user_id, :topic_id, :title
 end
