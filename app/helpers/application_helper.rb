@@ -6,11 +6,11 @@ module ApplicationHelper
   YEAR_IN_SECONDS = MONTH_IN_SECONDS * 12
 
   def time_difference(dt)
-    diff = TimeDifference.between(Time.zone.now, dt).in_seconds.to_i
+    diff = TimeDifference.between(Time.zone.now, dt).in_seconds
 
     case
     when diff < MINUTE_IN_SECONDS
-      "#{diff.to_i} " + "second".pluralize(diff) + " ago"
+      "#{diff.to_i} " + "second".pluralize(diff.to_i) + " ago"
     when diff.between?(MINUTE_IN_SECONDS, HOUR_IN_SECONDS)
       diff = TimeDifference.between(Time.zone.now, dt).in_minutes.to_i
       "#{diff} " + "minute".pluralize(diff) + " ago"

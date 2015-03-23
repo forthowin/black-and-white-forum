@@ -9,7 +9,7 @@ class SubjectsController < ApplicationController
   def show
     @topic = Topic.find params[:topic_id]
     @subject = Subject.find params[:subject_id]
-    @post = Post.new
+    @posts = @subject.posts.paginate(:page => params[:page])
     impressionist @subject
   end
 
