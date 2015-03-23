@@ -17,7 +17,7 @@
       %td(style="width:60%")
         = simple_format(post.body)
       %td(style="width:10%")
-        = "##{index + 2}"
+        = "##{index + 1 + 10 * (params[:page].to_i - 1)}"
         %br
         = time_difference(post.created_at)
 
