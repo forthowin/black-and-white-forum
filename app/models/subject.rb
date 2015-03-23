@@ -6,7 +6,7 @@ class Subject < ActiveRecord::Base
 
   is_impressionable
 
-  validates_presence_of :user_id, :topic_id, :title, :body
+  validates_presence_of :user_id, :topic_id, :title
 
   def recent_post_user
     if posts.empty?

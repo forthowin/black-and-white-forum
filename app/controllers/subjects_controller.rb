@@ -3,7 +3,7 @@ class SubjectsController < ApplicationController
 
   def index
     @topic = Topic.find(params[:topic_id])
-    @subjects = Subject.where("topic_id = ?", @topic.id).includes(:post).order("posts.created_at DESC")
+    @subjects = @topic.subjects #Subject.where("topic_id = ?", @topic.id).includes(:post).order("posts.created_at DESC")
     #@topic.subjects.includes(:posts).order("posts.created_at DESC")
   end
 
@@ -20,22 +20,24 @@ class SubjectsController < ApplicationController
   end
 
   def create
-    @subject = Subject.new(subject_params)
-    @subject.user = current_user
-    @subject.topic_id = params[:topic_id]
-    if @subject.save
-      post = Post.create(body: params[:subject][:body], subject_id: @subject.id, user: current_user)
-      flash[:success] = "Subject has been created."
-      redirect_to forum_subject_path(params[:topic_id], @subject.id)
-    else
-      @topic = Topic.find params[:topic_id]
-      render :new
+    begin
+      create_subject_and_post
+    rescue ActiveRecord::RecordInvalid
+      flash[:danger] = "Title and body cannot be blank."
+      redirect_to :back
     end
   end
 
   private
 
-  def subject_params
-    params.require(:subject).permit(:title, :body)
+  def create_subject_and_post
+    ActiveRecord::Base.transaction do
+      subject = Subject.new(title: params[:title], topic_id: params[:topic_id], user: current_user)
+      if subject.save!
+        Post.create!(body: params[:body], subject_id: subject.id, user: current_user)
+        flash[:success] = "Subject has been created."
+        redirect_to forum_subject_path(params[:topic_id], subject.id)
+      end
+    end
   end
 end

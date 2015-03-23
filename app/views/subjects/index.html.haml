@@ -23,7 +23,7 @@
         = link_to subject.user.username, user_path(subject.user)
         = time_difference(subject.created_at)
       %td
-        = "Replies: #{subject.posts.count}"
+        = "Replies: #{subject.posts.count - 1}"
         %br
         = "Views: #{subject.impressionist_count(:filter=>:session_hash)}"
       %td

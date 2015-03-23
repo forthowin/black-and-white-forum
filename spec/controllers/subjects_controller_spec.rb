@@ -71,11 +71,15 @@ describe SubjectsController do
     context "with valid inputs" do
       before do
         session[:user_id] = bob.id
-        post :create, subject: {title: 'title', body: 'body'}, topic_id: topic.id
+        post :create, title: 'title', body: 'body', topic_id: topic.id
       end
 
-      it "creates a new subject" do
+      it "creates a subject" do
         expect(Subject.count).to eq(1)
+      end
+
+      it "creates a post" do
+        expect(Post.count).to eq(1)
       end
 
       it "sets the flash success message" do
@@ -90,22 +94,37 @@ describe SubjectsController do
     context "with invalid inputs" do
       before do
         session[:user_id] = bob.id
-        post :create, subject: {title: '', body: 'body'}, topic_id: topic.id
-      end
-      it "renders the :new page" do
-        expect(response).to render_template :new
+        request.env["HTTP_REFERER"] = "/forum/#{topic.id}/new"
       end
 
-      it "does not create a subject" do
+      it "redirects back to the new page" do
+        post :create, title: '', body: 'body', topic_id: topic.id
+        expect(response).to redirect_to new_subject_path(topic.id)
+      end
+
+      it "does not create a subject when the title is blank" do
+        post :create, title: '', body: 'body', topic_id: topic.id
         expect(Subject.count).to eq(0)
       end
 
-      it "assigns @subject" do
-        expect(assigns(:subject)).to be_a_new(Subject)
+      it "does not create a subject when the body is blank" do
+        post :create, title: 'title', body: '', topic_id: topic.id
+        expect(Subject.count).to eq(0)
       end
 
-      it "assigns @topic" do
-        expect(assigns(:topic)).to eq(topic)
+      it "does not create a post when the title is blank" do
+        post :create, title: '', body: 'body', topic_id: topic.id
+        expect(Post.count).to eq(0)
+      end
+
+      it "does not create a post when the body is blank" do
+        post :create, title: 'title', body: '', topic_id: topic.id
+        expect(Post.count).to eq(0)
+      end
+
+      it "sets the flash danger message" do
+        post :create, title: '', body: 'body', topic_id: topic.id
+        expect(flash[:danger]).to be_present
       end
     end
 

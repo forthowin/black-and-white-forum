@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150323004556) do
+ActiveRecord::Schema.define(version: 20150323072647) do
 
   create_table "impressions", force: true do |t|
     t.string   "impressionable_type"
@@ -48,7 +48,6 @@ ActiveRecord::Schema.define(version: 20150323004556) do
 
   create_table "subjects", force: true do |t|
     t.string   "title"
-    t.text     "body"
     t.integer  "user_id"
     t.integer  "topic_id"
     t.datetime "created_at"

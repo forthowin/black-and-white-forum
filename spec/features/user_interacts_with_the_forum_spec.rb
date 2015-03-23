@@ -20,8 +20,8 @@ feature "User interacts with the forum" do
   end
 
   def create_a_new_subject
-    fill_in :subject_title, with: 'Strategy for this war'
-    fill_in :subject_body, with: 'Coming soon'
+    fill_in :title, with: 'Strategy for this war'
+    fill_in :body, with: 'Coming soon'
     click_button 'Submit'
   end
 
