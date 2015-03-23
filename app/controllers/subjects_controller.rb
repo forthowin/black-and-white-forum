@@ -3,7 +3,8 @@ class SubjectsController < ApplicationController
 
   def index
     @topic = Topic.find(params[:topic_id])
-    @subjects = @topic.subjects
+    @subjects = Subject.where("topic_id = ?", @topic.id).includes(:post).order("posts.created_at DESC")
+    #@topic.subjects.includes(:posts).order("posts.created_at DESC")
   end
 
   def show
@@ -23,6 +24,7 @@ class SubjectsController < ApplicationController
     @subject.user = current_user
     @subject.topic_id = params[:topic_id]
     if @subject.save
+      post = Post.create(body: params[:subject][:body], subject_id: @subject.id, user: current_user)
       flash[:success] = "Subject has been created."
       redirect_to forum_subject_path(params[:topic_id], @subject.id)
     else
