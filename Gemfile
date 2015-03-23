@@ -13,6 +13,8 @@ gem 'bootstrap_form'
 gem 'haml-rails'
 gem 'time_difference', '~> 0.3.2'
 gem 'impressionist'
+gem 'will_paginate', '~> 3.0.6'
+gem 'bootstrap-will_paginate'
 
 group :development, :test do
   gem 'debugger'
