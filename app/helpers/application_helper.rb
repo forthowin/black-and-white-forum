@@ -6,11 +6,11 @@ module ApplicationHelper
   YEAR_IN_SECONDS = MONTH_IN_SECONDS * 12
 
   def time_difference(dt)
-    diff = TimeDifference.between(Time.zone.now, dt).in_seconds.to_i
+    diff = TimeDifference.between(Time.zone.now, dt).in_seconds
 
     case
     when diff < MINUTE_IN_SECONDS
-      "#{diff.to_i} " + "second".pluralize(diff) + " ago"
+      "#{diff.to_i} " + "second".pluralize(diff.to_i) + " ago"
     when diff.between?(MINUTE_IN_SECONDS, HOUR_IN_SECONDS)
       diff = TimeDifference.between(Time.zone.now, dt).in_minutes.to_i
       "#{diff} " + "minute".pluralize(diff) + " ago"
@@ -22,10 +22,18 @@ module ApplicationHelper
       "#{diff} " + "day".pluralize(diff) + " ago"
     when diff.between?(MONTH_IN_SECONDS, YEAR_IN_SECONDS)
       diff = TimeDifference.between(Time.zone.now, dt).in_months.to_i
-      "#{diff} " + "moneth".pluralize(diff) + " ago"
+      "#{diff} " + "month".pluralize(diff) + " ago"
     when diff > YEAR_IN_SECONDS
       diff = TimeDifference.between(Time.zone.now, dt).in_years.to_i
       "#{diff} " + "year".pluralize(diff) + " ago"
+    end
+  end
+
+  def display_recent_subject_or_post_time(subject)
+    if subject.posts.empty?
+      time_difference(subject.created_at)
+    else
+      time_difference(subject.posts.last.created_at)
     end
   end
 end
