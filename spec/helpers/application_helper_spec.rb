@@ -15,4 +15,16 @@ describe ApplicationHelper do
       expect(time_difference(subject.created_at)).to eq("2 seconds ago")
     end
   end
+
+  describe "#normalize_post_number" do
+    it "returns 1 for the first post on the first page" do
+      params[:page] = 1
+      expect(normalize_post_number(0)).to eq(1)
+    end
+
+    it "returns 11 for the first post on the scond page" do
+      params[:page] = 2
+      expect(normalize_post_number(0)).to eq(11)
+    end
+  end
 end

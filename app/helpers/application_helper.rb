@@ -36,4 +36,8 @@ module ApplicationHelper
       time_difference(subject.posts.last.created_at)
     end
   end
+
+  def normalize_post_number(index)
+    index + 1 + 10 * (params[:page].to_i - 1)
+  end
 end
