@@ -13,7 +13,7 @@
       %td(style="width:20%")
         = link_to post.user.username, user_path(post.user)
         %br
-        = "Posts: #{post.user.posts.count + post.user.subjects.count}"
+        = "Posts: #{post.user.posts.count}"
       %td(style="width:60%")
         = simple_format(post.body)
       %td(style="width:10%")
