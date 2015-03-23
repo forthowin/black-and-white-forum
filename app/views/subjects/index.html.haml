@@ -25,7 +25,7 @@
       %td
         = "Replies: #{subject.posts.count}"
         %br
-        = "Views: "
+        = "Views: #{subject.impressionist_count(:filter=>:session_hash)}"
       %td
         = subject.user.username
 

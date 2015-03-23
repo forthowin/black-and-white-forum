@@ -10,6 +10,7 @@ class SubjectsController < ApplicationController
     @topic = Topic.find params[:topic_id]
     @subject = Subject.find params[:subject_id]
     @post = Post.new
+    impressionist @subject
   end
 
   def new
