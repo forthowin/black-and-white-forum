@@ -19,7 +19,7 @@
       %td(style="width:10%")
         = "##{normalize_post_number(index)}"
         %br
-        = time_difference(post.created_at)
+        = distance_of_time_in_words(Time.now, post.created_at) + " ago"
 
 =will_paginate @posts
 %br

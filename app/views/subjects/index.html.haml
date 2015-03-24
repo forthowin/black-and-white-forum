@@ -25,13 +25,13 @@
         %br
         = "Started by "
         = link_to subject.user.username, user_path(subject.user)
-        = time_difference(subject.created_at)
+        = distance_of_time_in_words(Time.now, subject.created_at) + " ago"
       %td
         = "Replies: #{subject.posts.count - 1}"
         %br
         = "Views: #{subject.impressionist_count(:filter=>:session_hash)}"
       %td
         = link_to subject.posts.first.user.username, user_path(subject.posts.first.user)
-        = time_difference(subject.posts.first.created_at)
+        = distance_of_time_in_words(Time.now, subject.posts.first.created_at) + " ago"
 
 = will_paginate @subjects
